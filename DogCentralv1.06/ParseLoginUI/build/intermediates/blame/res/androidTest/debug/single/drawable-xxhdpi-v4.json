@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/stevierose/deployment/DogCentralv1.06/ParseLoginUI/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/com_parse_ui_facebook_login_logo.png",
+        "source": "/Users/stevierose/deployment/DogCentralv1.06/ParseLoginUI/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/com_parse_ui_facebook_login_logo.png"
+    },
+    {
+        "merged": "/Users/stevierose/deployment/DogCentralv1.06/ParseLoginUI/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/com_parse_ui_twitter_login_logo.png",
+        "source": "/Users/stevierose/deployment/DogCentralv1.06/ParseLoginUI/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/com_parse_ui_twitter_login_logo.png"
+    },
+    {
+        "merged": "/Users/stevierose/deployment/DogCentralv1.06/ParseLoginUI/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/com_parse_ui_app_logo.png",
+        "source": "/Users/stevierose/deployment/DogCentralv1.06/ParseLoginUI/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/com_parse_ui_app_logo.png"
+    }
+]

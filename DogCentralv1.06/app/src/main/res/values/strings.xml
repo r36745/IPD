@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Dog Central</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_text_to_display">No places nearby</string>
+    <string name="activities_category">Pet Activities</string>
+    <string name="nearby_places">Nearby Places</string>
+    <string name="place_name">Place Name: </string>
+    <string name="address">Address: </string>
+    <string name="currently_open">Currently Open: </string>
+</resources>
