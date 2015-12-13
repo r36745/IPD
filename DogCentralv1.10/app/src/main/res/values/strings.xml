@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Dog Central</string>
+    <string name="action_settings">Settings</string>
+    <string name="status">status</string>
+    <string name="post_button">Post</string>
+    <string name="dog_details">Dog Details</string>
+    <string name="name_place">Place Name</string>
+    <string name="place_address">address</string>
+    <string name="currently_open">currently open</string>
+    <string name="pet_activities">Pet activities</string>
+    <string name="dog_health">Dog health</string>
+    <string name="pet_services">Pet Services</string>
+    <string name="refresh">refresh</string>
+    <string name="nearby_places">Adoptable Dog</string>
+    <string name="adoptable_dogs">Adoptable Dog Details</string>
+    <string name="preview_images">previewImages</string>
+</resources>
