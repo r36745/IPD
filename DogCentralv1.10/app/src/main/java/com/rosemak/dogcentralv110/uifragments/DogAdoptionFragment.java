@@ -5,11 +5,9 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +17,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.rosemak.dogcentralv110.DogAdoptionAdapter;
-import com.rosemak.dogcentralv110.GooglePlace;
 import com.rosemak.dogcentralv110.R;
 import com.rosemak.dogcentralv110.UIHelper;
+import com.rosemak.dogcentralv110.adapters.DogAdoptionAdapter;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -54,15 +52,37 @@ public class DogAdoptionFragment extends Fragment  {
     protected double gLng = -76.82931342;
     protected ProgressBar mProgressBar;
     private OnAdoptionClick mListener;
+    private OnClickDogListener mDogListener;
     private URL queryURL;
     private ImageButton refreshButton;
+    private Activity a;
 
+
+
+    public interface OnClickDogListener{
+        public void dogListItems(GooglePlace dog);
+    }
 
     public interface OnAdoptionClick{
         public void dogList(GooglePlace dog);
     }
 
+/*
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+
+        if (context instanceof Activity) {
+            mDogListener = null;
+            a= (Activity) context;
+            mDogListener = (OnClickDogListener) a;
+        }
+
+    }
+*/
+
+   @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         if (activity instanceof OnAdoptionClick){
@@ -91,14 +111,13 @@ public class DogAdoptionFragment extends Fragment  {
         UIHelper helper = new UIHelper();
         mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
         refreshButton = (ImageButton) getActivity().findViewById(R.id.refreshButton);
-        //refreshButton.setVisibility(View.GONE);
+
 
 
         if (helper.isNetworkAvailable(getActivity())){
             try {
                 mProgressBar.setVisibility(View.VISIBLE);
 
-                //enableGps();
                 String dogData = "http://api.petfinder.com/pet.getRandom?format=json&animal=dog&breed=&output=basic&key=31385130ba6f55a45c2a06477f7d687e";
 
 
@@ -111,14 +130,16 @@ public class DogAdoptionFragment extends Fragment  {
             //Add Alert
 
             new AlertDialog.Builder(getActivity())
-                    .setTitle("Network Unavailable")
-                    .setMessage("Please check system settings")
+                    .setTitle("Wifi Unavailable")
+                    .setMessage("Please enable Wifi")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivityForResult(settingsIntent, REQUEST_ENABLE_GPS);
+                            //remain in view
+
+
+
                         }
                     }).show();
 
@@ -156,18 +177,16 @@ public class DogAdoptionFragment extends Fragment  {
         } else {
             //Add Alert
             new AlertDialog.Builder(getActivity())
-                    .setTitle("Network Unavailable")
+                    .setTitle("Wifi Unavailable")
                     .setMessage("Please check system settings")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivityForResult(settingsIntent, REQUEST_ENABLE_GPS);
+
                         }
                     })
                     .show();
-            Log.d(TAG, "No Network");
         }
     }
 
@@ -310,6 +329,8 @@ public class DogAdoptionFragment extends Fragment  {
 
 
                                         mListener.dogList(arrayList.get(position));
+
+
                                     }
                                 });
                             } else {
