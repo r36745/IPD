@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:text="@string/pet_activites"
+        android:text="@string/pet_activities"
         android:textAlignment="center"
         android:textSize="40sp"
         android:textColor="#336633"
@@ -20,6 +20,8 @@
         android:src="@drawable/dcl_2"
         android:layout_gravity="center"
         android:id="@+id/fSImage"/>
+
+
 
     <ListView
         android:layout_width="wrap_content"

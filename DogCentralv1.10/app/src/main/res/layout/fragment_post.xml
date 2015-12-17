@@ -3,4 +3,48 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_weight="1">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_camera_enhance_black_18dp"
+            android:id="@+id/addPhoto"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:layout_weight="1">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/editText"
+            android:hint="@string/status"/>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:contentDescription="@string/preview_images"
+            android:layout_height="100dp"
+            android:id="@+id/previewImg"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/post_button"
+            android:id="@+id/updateButton"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
 </LinearLayout>

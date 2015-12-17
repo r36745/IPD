@@ -14,41 +14,41 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/place_name"
-        android:textSize="12sp"
+        android:text="@string/name_place"
+        android:textSize="16sp"
         android:textAlignment="center"
         android:textColor="#336633"
         android:id="@+id/listPlaceName"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:id="@+id/detailPlaceName"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/address"
-        android:textSize="12sp"
+        android:text="@string/place_address"
+        android:textSize="16sp"
         android:textColor="#336633"
         android:id="@+id/listPlaceAddress"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:id="@+id/detailPlaceVicinity"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/currently_open"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:id="@+id/listPlaceHours"
         android:textColor="#336633"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:id="@+id/detailPlaceOpenNow"/>
 
 

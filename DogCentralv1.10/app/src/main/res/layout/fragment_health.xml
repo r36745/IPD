@@ -10,6 +10,7 @@
         android:text="@string/dog_health"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="10dp"
+        android:textColor="#336633"
         android:textSize="40sp"/>
 
     <ImageView
@@ -18,6 +19,7 @@
         android:src="@drawable/dcl_2"
         android:layout_gravity="center"
         android:id="@+id/fSImage"/>
+
 
     <ListView
         android:layout_width="wrap_content"
