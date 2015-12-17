@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uifragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,10 +19,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.UIHelper;
-import com.rosemak.dogcentralv106.adapters.DogAdoptionAdapter;
-import com.rosemak.dogcentralv106.places.GooglePlace;
+import com.rosemak.dogcentralv110.DogAdoptionAdapter;
+import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -209,101 +209,128 @@ public class DogAdoptionFragment extends Fragment  {
             try {
                 gPlacesData = result;
 
-                JSONObject jsonObject = gPlacesData.getJSONObject("petfinder");
 
-                //jsonArray = gPlacesData.getJSONArray("results");
+                if (gPlacesData == null) {
+                    Log.d(TAG, "No Data in GPlaces Data");
+                } else {
 
-                for (int i = 0; i < jsonObject.length(); i++) {
-                    final ArrayList<GooglePlace> arrayList = new ArrayList<GooglePlace>();
-                    final GooglePlace gPlace = new GooglePlace();
+                    JSONObject jsonObject = gPlacesData.getJSONObject("petfinder");
+                    if (jsonObject != null){
 
-                    if (jsonObject.getJSONObject("pet").has("contact")){
-                        JSONObject contactObj = jsonObject.getJSONObject("pet").getJSONObject("contact");
-                        JSONObject emailObj = contactObj.getJSONObject("email");
-                        if (emailObj.getString("$t") != null){
-                            gPlace.setEmail(emailObj.getString("$t"));
-                        } else {
-                            gPlace.setEmail("no email");
+                        for (int i = 0; i < jsonObject.length(); i++) {
+                            final ArrayList<GooglePlace> arrayList = new ArrayList<GooglePlace>();
+                            final GooglePlace gPlace = new GooglePlace();
+
+                            if (jsonObject.getJSONObject("pet").has("contact")){
+                                JSONObject contactObj = jsonObject.getJSONObject("pet").getJSONObject("contact");
+                                if (contactObj != null){
+
+                                    JSONObject emailObj = contactObj.getJSONObject("email");
+                                    if (emailObj.getString("$t") != null){
+                                        gPlace.setEmail(emailObj.getString("$t"));
+                                    } else {
+                                        gPlace.setEmail("no email");
+                                    }
+                                }
+
+
+                            }
+
+                            if (jsonObject.getJSONObject("pet").has("age")){
+                                JSONObject ageObj = jsonObject.getJSONObject("pet").getJSONObject("age");
+                                String age = ageObj.getString("$t");
+                                if (age != null) {
+                                    gPlace.setAge(ageObj.getString("$t"));
+                                }  else {
+                                    gPlace.setAge("no age");
+                                }
+
+                            }
+
+                            if (jsonObject.getJSONObject("pet").has("size")){
+                                JSONObject sizeObj = jsonObject.getJSONObject("pet").getJSONObject("size");
+                                String size = sizeObj.getString("$t");
+                                if (size != null) {
+                                    gPlace.setSize(sizeObj.getString("$t"));
+                                } else {
+                                    gPlace.setSize(sizeObj.getString("no size"));
+                                }
+
+                            }
+
+                            if (jsonObject.getJSONObject("pet").has("media")){
+                                JSONArray photoObj = jsonObject.getJSONObject("pet").getJSONObject("media").getJSONObject("photos").getJSONArray("photo");
+                                String newPhoto = photoObj.getJSONObject(i).getString("$t");
+                                if (newPhoto != null) {
+                                    gPlace.setAdoptionPhoto(photoObj.getJSONObject(i).getString("$t"));
+                                } else {
+                                    gPlace.setAdoptionPhoto("no media");
+                                }
+
+                            }
+
+                            if (jsonObject.getJSONObject("pet").has("breeds")){
+                                JSONObject breedObj = jsonObject.getJSONObject("pet").getJSONObject("breeds");
+                                String breed = breedObj.getJSONObject("breed").getString("$t");
+                                if (breed != null) {
+                                    gPlace.setBreed(breedObj.getJSONObject("breed").getString("$t"));
+                                } else{
+                                    gPlace.setBreed("no breed");
+                                }
+
+                            }
+
+                            if (jsonObject.getJSONObject("pet").has("description")) {
+                                JSONObject descriptionObj = jsonObject.getJSONObject("pet").getJSONObject("description");
+                                String description = descriptionObj.getString("$t");
+                                if (description != null) {
+                                    gPlace.setAdoptedDogDescription(descriptionObj.getString("$t"));
+                                } else {
+                                    gPlace.setAdoptedDogDescription("no description");
+                                }
+
+
+                            }
+
+
+
+
+
+                            mProgressBar.setVisibility(View.INVISIBLE);
+                            arrayList.add(gPlace);
+                            if (arrayList != null) {
+
+                                DogAdoptionAdapter arrayAdapter = new DogAdoptionAdapter(getActivity(), arrayList);
+                                ListView placesList = (ListView) getActivity().findViewById(R.id.list);
+                                placesList.setAdapter(arrayAdapter);
+
+                                placesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                                        mListener.dogList(arrayList.get(position));
+                                    }
+                                });
+                            } else {
+                                Log.d(TAG, "No adapter");
+                            }
+
+
                         }
 
+
+                    } else {
+
+                        Log.d(TAG, "Its an array");
                     }
 
-                    if (jsonObject.getJSONObject("pet").has("age")){
-                        JSONObject ageObj = jsonObject.getJSONObject("pet").getJSONObject("age");
-                        String age = ageObj.getString("$t");
-                        if (age != null) {
-                            gPlace.setAge(ageObj.getString("$t"));
-                        }  else {
-                            gPlace.setAge("no age");
-                        }
+                    //jsonArray = gPlacesData.getJSONArray("results");
 
-                    }
-
-                    if (jsonObject.getJSONObject("pet").has("size")){
-                        JSONObject sizeObj = jsonObject.getJSONObject("pet").getJSONObject("size");
-                        String size = sizeObj.getString("$t");
-                        if (size != null) {
-                            gPlace.setSize(sizeObj.getString("$t"));
-                        } else {
-                            gPlace.setSize(sizeObj.getString("no size"));
-                        }
-
-                    }
-
-                    if (jsonObject.getJSONObject("pet").has("media")){
-                        JSONArray photoObj = jsonObject.getJSONObject("pet").getJSONObject("media").getJSONObject("photos").getJSONArray("photo");
-                        String newPhoto = photoObj.getJSONObject(i).getString("$t");
-                        if (newPhoto != null) {
-                            gPlace.setAdoptionPhoto(photoObj.getJSONObject(i).getString("$t"));
-                        } else {
-                            gPlace.setAdoptionPhoto("no media");
-                        }
-
-                    }
-
-                    if (jsonObject.getJSONObject("pet").has("breeds")){
-                        JSONObject breedObj = jsonObject.getJSONObject("pet").getJSONObject("breeds");
-                        String breed = breedObj.getJSONObject("breed").getString("$t");
-                        if (breed != null) {
-                            gPlace.setBreed(breedObj.getJSONObject("breed").getString("$t"));
-                        } else{
-                            gPlace.setBreed("no breed");
-                        }
-
-                    }
-
-                    if (jsonObject.getJSONObject("pet").has("description")) {
-                        JSONObject descriptionObj = jsonObject.getJSONObject("pet").getJSONObject("description");
-                        String description = descriptionObj.getString("$t");
-                        if (description != null) {
-                            gPlace.setAdoptedDogDescription(descriptionObj.getString("$t"));
-                        } else {
-                            gPlace.setAdoptedDogDescription("no description");
-                        }
-
-
-                    }
-
-
-
-
-
-                    mProgressBar.setVisibility(View.INVISIBLE);
-                    arrayList.add(gPlace);
-                    DogAdoptionAdapter arrayAdapter = new DogAdoptionAdapter(getActivity(), arrayList);
-                    ListView placesList = (ListView) getActivity().findViewById(R.id.list);
-                    placesList.setAdapter(arrayAdapter);
-
-                    placesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                            mListener.dogList(arrayList.get(position));
-                        }
-                    });
 
                 }
+
+
 
 
             } catch (JSONException e) {

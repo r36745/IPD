@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.places.FourSquarePlace;
+import com.rosemak.dogcentralv110.FourSquarePlace;
+import com.rosemak.dogcentralv110.R;
 
 import java.util.ArrayList;
 

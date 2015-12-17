@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.places.GooglePlace;
+import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.R;
 
 import java.util.ArrayList;
 

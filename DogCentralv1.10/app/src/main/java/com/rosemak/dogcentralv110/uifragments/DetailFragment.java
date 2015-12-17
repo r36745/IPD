@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uifragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.rosemak.dogcentralv106.R;
+import com.rosemak.dogcentralv110.R;
 
 /**
  * Created by stevierose on 11/29/15.
@@ -22,7 +22,7 @@ public class DetailFragment extends Fragment {
         public String detailName();
         public String detailVicinty();
         public String detailPlaceOpen();
-        public Float detailRating();
+        public String detailRating();
     }
 
 
@@ -55,7 +55,7 @@ public class DetailFragment extends Fragment {
 
 
         detailName.setText(mListener.detailName());
-        detailVicinity.setText(mListener.detailVicinty());
+        detailVicinity.setText(mListener.detailVicinty().replaceAll("\\p{P}",""));
         detailOpenNow.setText(mListener.detailPlaceOpen());
         //detailRating.setRating(mListener.detailRating());
     }

@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.places;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uiactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.places.FourSquarePlace;
-import com.rosemak.dogcentralv106.places.GooglePlace;
-import com.rosemak.dogcentralv106.uifragment.DetailFragment;
-import com.rosemak.dogcentralv106.uifragment.MyMapFragment;
+import com.rosemak.dogcentralv110.FourSquarePlace;
+import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.MainActivity;
+import com.rosemak.dogcentralv110.MyMapFragment;
+import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.uifragments.DetailFragment;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
     private GooglePlace mGooglePlace;
     private FourSquarePlace mFSPlace;
     private String name, vicinity, openNow;
-    private Float rating;
+    private String rating;
     private double mLat;
     private double mLng;
     private ArrayList<GooglePlace>mArrayList;
@@ -58,10 +59,9 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
             name = mGooglePlace.getName();
             vicinity = mGooglePlace.getVicinity();
             openNow = mGooglePlace.getOpen();
-            rating = mGooglePlace.getRating();
             mLat = mGooglePlace.getmLat();
             mLng = mGooglePlace.getmLng();
-            Log.d(TAG, "THE DETAILED rating= " + rating);
+
 
 
             MyMapFragment myMapFragment = MyMapFragment.newInstance(mGooglePlace);
@@ -144,7 +144,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
     }
 
     @Override
-    public Float detailRating() {
+    public String detailRating() {
         return rating;
     }
 

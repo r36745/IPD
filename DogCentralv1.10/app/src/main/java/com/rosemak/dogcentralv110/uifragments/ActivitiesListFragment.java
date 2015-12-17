@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uifragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -22,10 +22,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.UIHelper;
-import com.rosemak.dogcentralv106.adapters.CategoriesArrayAdapter;
-import com.rosemak.dogcentralv106.places.FourSquarePlace;
+import com.rosemak.dogcentralv110.CategoriesArrayAdapter;
+import com.rosemak.dogcentralv110.FourSquarePlace;
+import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;

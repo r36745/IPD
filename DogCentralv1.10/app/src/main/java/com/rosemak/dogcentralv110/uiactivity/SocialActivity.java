@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uiactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,24 +8,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.places.GooglePlace;
-import com.rosemak.dogcentralv106.uifragment.HealthListFragment;
+import com.parse.ui.ParseLoginBuilder;
+import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.uifragments.SocialFragment;
 
 /**
- * Created by stevierose on 11/30/15.
+ * Created by stevierose on 12/11/15.
  */
-public class HealthActivity extends AppCompatActivity implements HealthListFragment.HealthOnButtonClickListener{
-    public static final String TAG = HealthActivity.class.getSimpleName();
+public class SocialActivity extends AppCompatActivity {
+
+    public static final String TAG = SocialActivity.class.getSimpleName();
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_health);
+        setContentView(R.layout.activity_social);
 
-        HealthListFragment healthListFragment = new HealthListFragment();
+        SocialFragment socialFragment = new SocialFragment();
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, healthListFragment, HealthListFragment.TAG)
+                .replace(R.id.container, socialFragment, SocialFragment.TAG)
                 .commit();
     }
 
@@ -36,7 +37,6 @@ public class HealthActivity extends AppCompatActivity implements HealthListFragm
         getMenuInflater().inflate(R.menu.activity_main_list, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -60,20 +60,13 @@ public class HealthActivity extends AppCompatActivity implements HealthListFragm
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
+        } else if (id==R.id.log_in){
+
+            ParseLoginBuilder builder = new ParseLoginBuilder(this);
+            startActivityForResult(builder.build(), 0);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void placesArray(GooglePlace placeArray) {
-
-        double lat = placeArray.getmLat();
-        Log.d("LATTY", "THE LAT" + lat);
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("placeDetails", placeArray);
-        startActivity(intent);
-
-
-    }
 }

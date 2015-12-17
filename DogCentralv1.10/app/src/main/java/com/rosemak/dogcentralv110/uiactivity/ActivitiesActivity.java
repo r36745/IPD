@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uiactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.places.FourSquarePlace;
-import com.rosemak.dogcentralv106.uifragment.ActivitiesListFragment;
+import com.rosemak.dogcentralv110.ActivitiesListFragment;
+import com.rosemak.dogcentralv110.DetailActivity;
+import com.rosemak.dogcentralv110.FourSquarePlace;
+import com.rosemak.dogcentralv110.MainActivity;
+import com.rosemak.dogcentralv110.R;
 
 /**
  * Created by stevierose on 11/29/15.
@@ -69,8 +71,6 @@ public class ActivitiesActivity extends AppCompatActivity implements ActivitiesL
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-
-        } else if (id==R.id.follow){
 
         }
 

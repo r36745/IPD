@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uiactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.places.GooglePlace;
-import com.rosemak.dogcentralv106.uifragment.ServicesListFragment;
+import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.ServicesListFragment;
 
 /**
  * Created by stevierose on 11/30/15.

@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uifragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -20,13 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.rosemak.dogcentralv106.R;
-import com.rosemak.dogcentralv106.UIHelper;
-import com.rosemak.dogcentralv106.adapters.ArrayAdapter;
-import com.rosemak.dogcentralv106.places.GooglePlace;
+import com.rosemak.dogcentralv110.ArrayAdapter;
+import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -58,6 +59,7 @@ public class ServicesListFragment extends Fragment implements LocationListener {
     protected double gLng = -76.82931342;
     private SvcsOnButtonClickListener mListener;
     protected ProgressBar mProgressBar;
+    private URL queryURL;
 
 
     @Override
@@ -91,8 +93,19 @@ public class ServicesListFragment extends Fragment implements LocationListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String API_KEY = "AIzaSyDAoJFZ0PsLPN602WpV98uWFnlyVsytHxc";
+        String API_KEY = "AIzaSyAdz3rwZeBojFyBItGwc0mmTBrPX8ZYtkg";
         UIHelper helper = new UIHelper();
+
+        ImageButton refresh = (ImageButton) getActivity().findViewById(R.id.servicesRefreshButton);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new GetStores().execute(queryURL);
+                Log.d(TAG, "Refreshed");
+            }
+        });
+
         mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
         if (helper.isNetworkAvailable(getActivity())){
             try {
@@ -100,7 +113,7 @@ public class ServicesListFragment extends Fragment implements LocationListener {
                 enableGps();
 
                 String placesData = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + mLat +  "," +  mLng +"&radius=8000&types=pet_stores&keyword=adoption&key=" + API_KEY;
-                URL queryURL = new URL(placesData);
+                queryURL = new URL(placesData);
                 new GetStores().execute(queryURL);
             } catch (MalformedURLException e) {
                 e.printStackTrace();

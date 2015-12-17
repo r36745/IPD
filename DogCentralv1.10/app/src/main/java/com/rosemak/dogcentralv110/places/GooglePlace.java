@@ -1,6 +1,8 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.places;
 
 import android.net.Uri;
+
+import com.parse.ParseUser;
 
 import java.io.Serializable;
 
@@ -10,7 +12,7 @@ import java.io.Serializable;
 public class GooglePlace implements Serializable {
     private String name;
     private String category;
-    private float rating;
+
     private String open;
     private String photo;
     public double mLat;
@@ -28,13 +30,50 @@ public class GooglePlace implements Serializable {
     public String breed;
     public String adoptedDogName;
     public String adoptedDogDescription;
+    public Float rating;
+    public Float socialRating;
+    public String postRating;
+    public ParseUser currentUser;
+
+    public ParseUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(ParseUser currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public String getPostRating() {
+        return postRating;
+    }
+
+    public void setPostRating(String postRating) {
+        this.postRating = postRating;
+    }
+
+    public Float getSocialRating() {
+        return socialRating;
+    }
+
+    public void setSocialRating(Float socialRating) {
+        this.socialRating = socialRating;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
 
     public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public String setPhoto(String photo) {
         this.photo = photo;
+        return photo;
     }
 
     public String getEmail() {
@@ -133,13 +172,6 @@ public class GooglePlace implements Serializable {
         this.mImage = mImage;
     }
 
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
 
     public String getVicinity() {
         return vicinity;

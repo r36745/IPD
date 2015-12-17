@@ -1,4 +1,4 @@
-package com.rosemak.dogcentralv110;
+package com.rosemak.dogcentralv110.uiactivity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.parse.ParseUser;
+import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.uifragments.CategoriesFragment;
+import com.rosemak.dogcentralv110.uifragments.DogAdoptionFragment;
 
 public class MainActivity extends AppCompatActivity implements DogAdoptionFragment.OnAdoptionClick {
     public static final String TAG = MainActivity.class.getSimpleName();
