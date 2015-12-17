@@ -22,7 +22,7 @@ public class DetailFragment extends Fragment {
         public String detailName();
         public String detailVicinty();
         public String detailPlaceOpen();
-        public String detailRating();
+
     }
 
 
@@ -51,12 +51,11 @@ public class DetailFragment extends Fragment {
         TextView detailName = (TextView) getActivity().findViewById(R.id.detailPlaceName);
         TextView detailVicinity = (TextView) getActivity().findViewById(R.id.detailPlaceVicinity);
         TextView detailOpenNow = (TextView) getActivity().findViewById(R.id.detailPlaceOpenNow);
-        //RatingBar detailRating = (RatingBar) getActivity().findViewById(R.id.detailPlaceRating);
 
 
         detailName.setText(mListener.detailName());
         detailVicinity.setText(mListener.detailVicinty().replaceAll("\\p{P}",""));
         detailOpenNow.setText(mListener.detailPlaceOpen());
-        //detailRating.setRating(mListener.detailRating());
+
     }
 }
