@@ -8,10 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.FourSquarePlace;
-import com.rosemak.dogcentralv110.GooglePlace;
-import com.rosemak.dogcentralv110.MainActivity;
-import com.rosemak.dogcentralv110.MyMapFragment;
+import com.rosemak.dogcentralv110.places.FourSquarePlace;
+import com.rosemak.dogcentralv110.places.GooglePlace;
+import com.rosemak.dogcentralv110.uifragments.MyMapFragment;
 import com.rosemak.dogcentralv110.R;
 import com.rosemak.dogcentralv110.uifragments.DetailFragment;
 
@@ -143,10 +142,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         return openNow;
     }
 
-    @Override
-    public String detailRating() {
-        return rating;
-    }
+
 
 
 

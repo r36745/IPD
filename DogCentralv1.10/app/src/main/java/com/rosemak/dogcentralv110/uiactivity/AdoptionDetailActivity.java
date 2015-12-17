@@ -1,20 +1,16 @@
 package com.rosemak.dogcentralv110.uiactivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.AdoptionDetailFragment;
-import com.rosemak.dogcentralv110.GooglePlace;
-import com.rosemak.dogcentralv110.MainActivity;
+import com.parse.ui.ParseLoginBuilder;
 import com.rosemak.dogcentralv110.R;
-
-import java.net.URL;
+import com.rosemak.dogcentralv110.places.GooglePlace;
+import com.rosemak.dogcentralv110.uifragments.AdoptionDetailFragment;
 
 /**
  * Created by stevierose on 12/6/15.
@@ -25,9 +21,6 @@ public class AdoptionDetailActivity extends AppCompatActivity implements Adoptio
     private String breed;
     private String description;
     private String url;
-    private Bitmap img;
-    private URL imgUrl;
-
 
 
     @Override
@@ -46,7 +39,7 @@ public class AdoptionDetailActivity extends AppCompatActivity implements Adoptio
             breed = mGPlace.getBreed();
             description = mGPlace.getAdoptedDogDescription();
             url = mGPlace.getAdoptionPhoto();
-            Log.d(TAG, "url= " + url);
+
 
         }
 
@@ -69,7 +62,7 @@ public class AdoptionDetailActivity extends AppCompatActivity implements Adoptio
         if (id == R.id.log_out) {
             ParseUser.logOut();
             ParseUser currentUser = ParseUser.getCurrentUser();
-            Log.d(TAG, "Logged out");
+
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -81,6 +74,10 @@ public class AdoptionDetailActivity extends AppCompatActivity implements Adoptio
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
+        } else if (id == R.id.log_in) {
+
+            ParseLoginBuilder builder = new ParseLoginBuilder(AdoptionDetailActivity.this);
+            startActivityForResult(builder.build(), 0);
         }
 
         return super.onOptionsItemSelected(item);

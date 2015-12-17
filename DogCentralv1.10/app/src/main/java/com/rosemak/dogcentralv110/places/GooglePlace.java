@@ -2,8 +2,6 @@ package com.rosemak.dogcentralv110.places;
 
 import android.net.Uri;
 
-import com.parse.ParseUser;
-
 import java.io.Serializable;
 
 /**
@@ -33,13 +31,13 @@ public class GooglePlace implements Serializable {
     public Float rating;
     public Float socialRating;
     public String postRating;
-    public ParseUser currentUser;
+    public String currentUser;
 
-    public ParseUser getCurrentUser() {
+    public String getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(ParseUser currentUser) {
+    public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
     }
 

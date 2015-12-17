@@ -6,14 +6,12 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,10 +20,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.rosemak.dogcentralv110.CategoriesArrayAdapter;
-import com.rosemak.dogcentralv110.FourSquarePlace;
 import com.rosemak.dogcentralv110.R;
 import com.rosemak.dogcentralv110.UIHelper;
+import com.rosemak.dogcentralv110.adapters.CategoriesArrayAdapter;
+import com.rosemak.dogcentralv110.places.FourSquarePlace;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -266,14 +264,16 @@ public class ActivitiesListFragment extends Fragment implements LocationListener
 
         } else {
             new AlertDialog.Builder(getActivity())
-                    .setTitle("GPS Unavailable")
-                    .setMessage("Please enable GPS in the system settings.")
+                    .setTitle("Wifi Unavailable")
+                    .setMessage("Please enable Wifi")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivityForResult(settingsIntent, REQUEST_ENABLE_GPS);
+
+
+                            /*Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivityForResult(settingsIntent, REQUEST_ENABLE_GPS);*/
                         }
 
                     })

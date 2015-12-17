@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.rosemak.dogcentralv110.HealthActivity;
+import com.rosemak.dogcentralv110.uiactivity.HealthActivity;
 import com.rosemak.dogcentralv110.R;
-import com.rosemak.dogcentralv110.ServicesActivity;
-import com.rosemak.dogcentralv110.SocialActivity;
+import com.rosemak.dogcentralv110.uiactivity.ServicesActivity;
+import com.rosemak.dogcentralv110.uiactivity.SocialActivity;
 import com.rosemak.dogcentralv110.uiactivity.ActivitiesActivity;
 
 /**
@@ -83,70 +83,6 @@ public class CategoriesFragment extends Fragment {
             }
         });
 
-
-       /* ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser == null) {
-
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Come and Be Social")
-                    .setMessage("Log in to be Dog Social")
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //Toast cant be social without loggin in
-                            Toast.makeText(getActivity(), "Come join the social world", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            ParseLoginBuilder builder = new ParseLoginBuilder(getActivity());
-                            startActivityForResult(builder.build(), 0);
-
-                        }
-                    }).show();
-
-
-
-
-        } else {
-
-            aButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(getActivity(), ActivitiesActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            hButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), HealthActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            sButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ServicesActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            socialButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent parseIntent = new Intent(getActivity(), LoginParseActivity.class);
-                    startActivity(parseIntent);
-                }
-            });
-
-        }*/
 
 
     }

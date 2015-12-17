@@ -6,28 +6,25 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.rosemak.dogcentralv110.ArrayAdapter;
-import com.rosemak.dogcentralv110.GooglePlace;
 import com.rosemak.dogcentralv110.R;
 import com.rosemak.dogcentralv110.UIHelper;
+import com.rosemak.dogcentralv110.adapters.ArrayAdapter;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -96,15 +93,6 @@ public class ServicesListFragment extends Fragment implements LocationListener {
         String API_KEY = "AIzaSyAdz3rwZeBojFyBItGwc0mmTBrPX8ZYtkg";
         UIHelper helper = new UIHelper();
 
-        ImageButton refresh = (ImageButton) getActivity().findViewById(R.id.servicesRefreshButton);
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                new GetStores().execute(queryURL);
-                Log.d(TAG, "Refreshed");
-            }
-        });
 
         mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
         if (helper.isNetworkAvailable(getActivity())){
@@ -273,18 +261,14 @@ public class ServicesListFragment extends Fragment implements LocationListener {
 
         } else {
             new AlertDialog.Builder(getActivity())
-                    .setTitle("GPS Unavailable")
-                    .setMessage("Please enable GPS in the system settings.")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
+                    .setTitle("Wifi Unavailable")
+                    .setMessage("Please enable Wifi")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivityForResult(settingsIntent, REQUEST_ENABLE_GPS);
-                        }
 
-                    })
-                    .show();
+                        }
+                    }).show();
         }
     }
 

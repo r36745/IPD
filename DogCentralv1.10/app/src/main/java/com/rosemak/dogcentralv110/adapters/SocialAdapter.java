@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.R;
 
 import java.util.ArrayList;
@@ -60,6 +60,7 @@ public class SocialAdapter extends BaseAdapter {
 
         final ImageView img = (ImageView) convertView.findViewById(R.id.userImg);
         final TextView textView = (TextView) convertView.findViewById(R.id.userView);
+        final TextView nameTextView = (TextView) convertView.findViewById(R.id.usersName);
 
 
 
@@ -68,6 +69,7 @@ public class SocialAdapter extends BaseAdapter {
 
             String imageUri = gPlace.getPhoto();
             final String notes = gPlace.getmUserNotes();
+            final String theName = gPlace.getCurrentUser();
             ImageSize targetSize = new ImageSize(80, 50);
             imageLoader.displayImage(imageUri, img);
             imageLoader.loadImage(imageUri,targetSize, new SimpleImageLoadingListener() {
@@ -76,22 +78,17 @@ public class SocialAdapter extends BaseAdapter {
                     // Do whatever you want with Bitmap
                     img.setImageBitmap(loadedImage);
                     textView.setText(notes);
+                    nameTextView.setText(theName);
 
                 }
             });
 
             textView.setText(notes);
+            nameTextView.setText(theName);
 
         } else {
             Log.d(TAG, "Loader issue");
         }
-
-
-
-
-
-        //textView.setText(notes);
-
 
         return convertView;
     }

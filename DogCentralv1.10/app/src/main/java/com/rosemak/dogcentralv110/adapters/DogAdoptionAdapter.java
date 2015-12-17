@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.R;
 
 import java.util.ArrayList;

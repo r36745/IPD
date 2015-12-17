@@ -15,8 +15,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.rosemak.dogcentralv110.FourSquarePlace;
-import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.places.FourSquarePlace;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 
 import java.util.ArrayList;
 
@@ -38,20 +38,6 @@ public class MyMapFragment extends MapFragment implements GoogleMap.OnMapClickLi
     private String name;
     protected double gLat = 38.94048168;
     protected double gLng = -76.82931342;
-
-
-	/*public static MyMapFragment newInstance(GooglePlace mGooglePlace) {
-
-		MyMapFragment myMapFragment = new MyMapFragment();
-		double lat = mGooglePlace.getmLat();
-		double lng = mGooglePlace.getmLng();
-		Log.d(TAG, "lat= " +lat + "lng= " + lng);
-		Bundle args = new Bundle();
-		args.putSerializable(PLACES, mGooglePlace);
-		myMapFragment.setArguments(args);
-
-		return myMapFragment;
-	}*/
 
     public static MyMapFragment newInstance(GooglePlace gPlace) {
         MyMapFragment myMapFragment = new MyMapFragment();

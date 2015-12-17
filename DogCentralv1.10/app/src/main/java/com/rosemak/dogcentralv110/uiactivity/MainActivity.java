@@ -1,33 +1,21 @@
 package com.rosemak.dogcentralv110.uiactivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.GooglePlace;
+import com.parse.ui.ParseLoginBuilder;
 import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.uifragments.CategoriesFragment;
 import com.rosemak.dogcentralv110.uifragments.DogAdoptionFragment;
 
 public class MainActivity extends AppCompatActivity implements DogAdoptionFragment.OnAdoptionClick {
     public static final String TAG = MainActivity.class.getSimpleName();
-    protected Button mUpdateButton;
-    private Uri mImageUri;
-    protected ImageView mImageView;
-    protected ImageButton mAddPhoto;
-    public String KEY_NOTES = "notes";
-    public String KEY_IMG = "image";
-    public static final String POSTS = "AllPost";
-    private static final int REQUEST_TAKE_PICTURE = 0x01001;
     public static final String ADOPTME = "adoptme";
 
 
@@ -35,8 +23,8 @@ public class MainActivity extends AppCompatActivity implements DogAdoptionFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
 
 
@@ -50,64 +38,8 @@ public class MainActivity extends AppCompatActivity implements DogAdoptionFragme
                 .replace(R.id.container_2, dogAdoptionFragment, DogAdoptionFragment.TAG)
                 .commit();
 
-
-        /*mAddPhoto = (ImageButton) findViewById(R.id.photo);
-
-        mAddPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                mImageUri = getImageUri();
-                if (mImageUri != null) {
-
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-                }
-                startActivityForResult(cameraIntent, REQUEST_TAKE_PICTURE);
-
-            }
-        });*/
-
-
-       /* ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-                .build();
-        ImageLoader.getInstance().init(config);
-
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        final ImageView imageView;
-        imageView = (ImageView) findViewById(R.id.img);
-        String imageUri = "http://photos.petfinder.com/photos/pets/33755650/1/?bust=1447251502&width=300&-pn.jpg";
-
-
-        imageLoader.displayImage(imageUri, imageView);
-        imageLoader.loadImage(imageUri, new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
-                imageView.setImageBitmap(loadedImage);
-            }
-        });*/
-
-
-
-
-        /*MyMapFragment map = new MyMapFragment();
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, map, MyMapFragment.TAG)
-                .commit();*/
-
-
-
-
-
     }
 
-
-    private void addImageToGallery(Uri imageUri) {
-        Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        scanIntent.setData(imageUri);
-        MainActivity.this.sendBroadcast(scanIntent);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements DogAdoptionFragme
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
+        } else if (id == R.id.log_in) {
+            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
+            startActivityForResult(builder.build(), 0);
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,4 +85,5 @@ public class MainActivity extends AppCompatActivity implements DogAdoptionFragme
         startActivity(intent);
 
     }
+
 }

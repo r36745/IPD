@@ -18,9 +18,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
-import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.R;
-import com.rosemak.dogcentralv110.SocialAdapter;
+import com.rosemak.dogcentralv110.adapters.SocialAdapter;
 import com.rosemak.dogcentralv110.uiactivity.PostActivity;
 
 import java.util.ArrayList;
@@ -129,8 +129,7 @@ public class SocialFragment extends Fragment {
 
                         mGooglePlace.setmUserNotes(result.getString(postFragment.KEY_NOTES));
                         mGooglePlace.setPhoto(result.getString(postFragment.KEY_IMG));
-
-
+                        mGooglePlace.setCurrentUser(result.getString(postFragment.KEY_NAME));
 
                         mArrayList.add(mGooglePlace);
 

@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.PostFragment;
+import com.rosemak.dogcentralv110.uifragments.PostFragment;
 import com.rosemak.dogcentralv110.R;
 
 /**

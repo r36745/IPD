@@ -8,10 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.ActivitiesListFragment;
-import com.rosemak.dogcentralv110.DetailActivity;
-import com.rosemak.dogcentralv110.FourSquarePlace;
-import com.rosemak.dogcentralv110.MainActivity;
+import com.parse.ui.ParseLoginBuilder;
+import com.rosemak.dogcentralv110.uifragments.ActivitiesListFragment;
+import com.rosemak.dogcentralv110.places.FourSquarePlace;
 import com.rosemak.dogcentralv110.R;
 
 /**
@@ -34,11 +33,6 @@ public class ActivitiesActivity extends AppCompatActivity implements ActivitiesL
                     .commit();
 
 
-
-            /*TempActivitiesListFragment tFragment = new TempActivitiesListFragment();
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.container, tFragment, TempActivitiesListFragment.TAG)
-                    .commit();*/
         }
 
     }
@@ -72,20 +66,15 @@ public class ActivitiesActivity extends AppCompatActivity implements ActivitiesL
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
+        } else if (id == R.id.log_in) {
+
+            ParseLoginBuilder builder = new ParseLoginBuilder(ActivitiesActivity.this);
+            startActivityForResult(builder.build(), 0);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
- /*   @Override
-    public void placesArray(GooglePlace placeArray) {
-        String name = placeArray.getName();
-        Log.d("Place ", "Places= " + name);
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("placeDetails", placeArray);
-        startActivity(intent);
-
-    }*/
 
     @Override
     public void activitiesArray(FourSquarePlace place) {

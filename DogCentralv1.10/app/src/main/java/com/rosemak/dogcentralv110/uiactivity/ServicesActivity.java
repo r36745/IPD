@@ -3,14 +3,13 @@ package com.rosemak.dogcentralv110.uiactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.GooglePlace;
 import com.rosemak.dogcentralv110.R;
-import com.rosemak.dogcentralv110.ServicesListFragment;
+import com.rosemak.dogcentralv110.places.GooglePlace;
+import com.rosemak.dogcentralv110.uifragments.ServicesListFragment;
 
 /**
  * Created by stevierose on 11/30/15.
@@ -54,7 +53,7 @@ public class ServicesActivity extends AppCompatActivity implements ServicesListF
         if (id == R.id.log_out) {
             ParseUser.logOut();
             ParseUser currentUser = ParseUser.getCurrentUser();
-            Log.d(TAG, "Logged out");
+
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -64,6 +63,11 @@ public class ServicesActivity extends AppCompatActivity implements ServicesListF
         } else if (id == R.id.my_home) {
 
             Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.log_in) {
+
+            Intent intent = new Intent(this, ServicesActivity.class);
             startActivity(intent);
 
         }

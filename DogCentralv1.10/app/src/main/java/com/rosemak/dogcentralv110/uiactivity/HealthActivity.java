@@ -8,9 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.GooglePlace;
-import com.rosemak.dogcentralv110.HealthListFragment;
-import com.rosemak.dogcentralv110.MainActivity;
+import com.rosemak.dogcentralv110.places.GooglePlace;
+import com.rosemak.dogcentralv110.uifragments.HealthListFragment;
 import com.rosemak.dogcentralv110.R;
 
 /**

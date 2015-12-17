@@ -55,12 +55,12 @@ public class AdoptionDetailFragment extends Fragment {
 
         ImageLoader imageLoader = ImageLoader.getInstance();
         String imageUri = mListener.breedImg();
-        //imageView.setImageBitmap();
+
         imageLoader.displayImage(imageUri, imageView);
         imageLoader.loadImage(imageUri, new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                // Do whatever you want with Bitmap
+                // load Bitmap
                 imageView.setImageBitmap(loadedImage);
             }
         });

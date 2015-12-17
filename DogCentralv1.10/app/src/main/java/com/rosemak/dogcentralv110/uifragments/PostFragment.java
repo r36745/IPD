@@ -20,9 +20,9 @@ import android.widget.ImageView;
 
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.GooglePlace;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.R;
-import com.rosemak.dogcentralv110.SocialActivity;
+import com.rosemak.dogcentralv110.uiactivity.SocialActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -42,6 +42,7 @@ public class PostFragment extends Fragment {
     private GooglePlace mGooglePlace;
     public String KEY_NOTES = "notes";
     public String KEY_IMG = "image";
+    public String KEY_NAME = "usersname";
 
     public static final String POSTS = "TestPost";
     private static final int REQUEST_TAKE_PICTURE = 0x01001;
@@ -64,12 +65,12 @@ public class PostFragment extends Fragment {
         mImageView = (ImageView) getActivity().findViewById(R.id.previewImg);
 
 
+        //Images for post
         if(requestCode == REQUEST_TAKE_PICTURE ) {
             if(mImageUri != null) {
                 mImageView.setImageBitmap(BitmapFactory.decodeFile(mImageUri.getPath()));
 
                 addImageToGallery(mImageUri);
-                Log.d(TAG, "We have image");
 
 
             } else {
@@ -156,8 +157,9 @@ public class PostFragment extends Fragment {
                 ParseObject post = new ParseObject(POSTS);
                 ParseUser user = ParseUser.getCurrentUser();
 
-                String myUser = user.getUsername();
-                Log.d(TAG, "my user= " + myUser);
+                String name = user.getString("name");
+                Log.d(TAG, "NAMES= " + name);
+                post.put(KEY_NAME, name);
 
                 if (!userNotes.equals("") && userImg.equals("") ) {
                     post.put(KEY_NOTES, userNotes);
