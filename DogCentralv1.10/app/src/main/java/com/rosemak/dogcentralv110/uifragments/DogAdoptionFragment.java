@@ -150,45 +150,21 @@ public class DogAdoptionFragment extends Fragment  {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new GetPets().execute(queryURL);
+
+                String dogData = "http://api.petfinder.com/pet.getRandom?format=json&animal=dog&breed=&output=basic&key=31385130ba6f55a45c2a06477f7d687e";
+
+                try {
+                    queryURL = new URL(dogData);
+                    new GetPets().execute(queryURL);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        UIHelper helper = new UIHelper();
-        mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
 
-        if (helper.isNetworkAvailable(getActivity())){
-            try {
-                mProgressBar.setVisibility(View.VISIBLE);
-
-                //enableGps();
-                String dogData = "http://api.petfinder.com/pet.getRandom?format=json&animal=dog&breed=&output=basic&key=31385130ba6f55a45c2a06477f7d687e";
-
-
-                URL queryURL = new URL(dogData);
-                new GetPets().execute(queryURL);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            //Add Alert
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Wifi Unavailable")
-                    .setMessage("Please check system settings")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-
-                        }
-                    })
-                    .show();
-        }
-    }
 
     private class GetPets extends AsyncTask<URL, Void, JSONObject> {
 

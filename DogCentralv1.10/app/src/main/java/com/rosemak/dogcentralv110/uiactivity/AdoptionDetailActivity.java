@@ -1,5 +1,7 @@
 package com.rosemak.dogcentralv110.uiactivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
 import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.uifragments.AdoptionDetailFragment;
 
@@ -21,6 +24,7 @@ public class AdoptionDetailActivity extends AppCompatActivity implements Adoptio
     private String breed;
     private String description;
     private String url;
+    public UIHelper helper;
 
 
     @Override
@@ -76,8 +80,25 @@ public class AdoptionDetailActivity extends AppCompatActivity implements Adoptio
 
         } else if (id == R.id.log_in) {
 
-            ParseLoginBuilder builder = new ParseLoginBuilder(AdoptionDetailActivity.this);
-            startActivityForResult(builder.build(), 0);
+            helper = new UIHelper();
+            if (!helper.isNetworkAvailable(AdoptionDetailActivity.this)){
+
+                ParseLoginBuilder builder = new ParseLoginBuilder(AdoptionDetailActivity.this);
+                startActivityForResult(builder.build(), 0);
+
+            } else {
+
+                new AlertDialog.Builder(AdoptionDetailActivity.this)
+                        .setTitle("Wifi is unavailable")
+                        .setMessage("Unable to login")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        }).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);

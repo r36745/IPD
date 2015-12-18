@@ -7,7 +7,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="20sp"
+        android:layout_marginStart="10dp"
         android:textColor="#336633"
         android:id="@+id/usersName"/>
 
@@ -16,12 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:id="@+id/userView"/>
 
     <ImageView
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginStart="10dp"
         android:id="@+id/userImg"
         android:layout_marginBottom="16dp"/>
 

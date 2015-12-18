@@ -1,5 +1,7 @@
 package com.rosemak.dogcentralv110.uiactivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
 import com.rosemak.dogcentralv110.uifragments.SocialFragment;
 
 /**
@@ -18,16 +21,28 @@ import com.rosemak.dogcentralv110.uifragments.SocialFragment;
 public class SocialActivity extends AppCompatActivity {
 
     public static final String TAG = SocialActivity.class.getSimpleName();
+    public UIHelper helper;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
 
-        SocialFragment socialFragment = new SocialFragment();
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, socialFragment, SocialFragment.TAG)
-                .commit();
+        helper = new UIHelper();
+        if (!helper.isNetworkAvailable(SocialActivity.this)){
+
+            Intent intent = new Intent(SocialActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        } else {
+
+            SocialFragment socialFragment = new SocialFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, socialFragment, SocialFragment.TAG)
+                    .commit();
+        }
+
+
     }
 
 
@@ -62,8 +77,27 @@ public class SocialActivity extends AppCompatActivity {
 
         } else if (id==R.id.log_in){
 
-            ParseLoginBuilder builder = new ParseLoginBuilder(this);
-            startActivityForResult(builder.build(), 0);
+            helper = new UIHelper();
+            if (!helper.isNetworkAvailable(SocialActivity.this)){
+
+
+
+                new AlertDialog.Builder(SocialActivity.this)
+                        .setTitle("Wifi is unavailable")
+                        .setMessage("Unable to login")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        }).show();
+
+            } else {
+
+                ParseLoginBuilder builder = new ParseLoginBuilder(SocialActivity.this);
+                startActivityForResult(builder.build(), 0);
+            }
         }
 
         return super.onOptionsItemSelected(item);

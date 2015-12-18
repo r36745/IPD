@@ -1,5 +1,7 @@
 package com.rosemak.dogcentralv110.uiactivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
 import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.uifragments.ServicesListFragment;
 
@@ -16,16 +20,30 @@ import com.rosemak.dogcentralv110.uifragments.ServicesListFragment;
  */
 public class ServicesActivity extends AppCompatActivity implements ServicesListFragment.SvcsOnButtonClickListener {
     public static final String TAG = ServicesActivity.class.getSimpleName();
+    public UIHelper helper;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
 
-        ServicesListFragment servicesListFragment = new ServicesListFragment();
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, servicesListFragment, ServicesListFragment.TAG)
-                .commit();
+
+        helper = new UIHelper();
+        if (!helper.isNetworkAvailable(ServicesActivity.this)){
+
+
+            Intent intent = new Intent(ServicesActivity.this, MainActivity.class);
+            startActivity(intent);
+
+
+        } else {
+
+            ServicesListFragment servicesListFragment = new ServicesListFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, servicesListFragment, ServicesListFragment.TAG)
+                    .commit();
+        }
+
     }
 
     @Override
@@ -67,8 +85,27 @@ public class ServicesActivity extends AppCompatActivity implements ServicesListF
 
         } else if (id == R.id.log_in) {
 
-            Intent intent = new Intent(this, ServicesActivity.class);
-            startActivity(intent);
+            helper = new UIHelper();
+            if (!helper.isNetworkAvailable(ServicesActivity.this)){
+
+
+                new AlertDialog.Builder(ServicesActivity.this)
+                        .setTitle("Wifi is unavailable")
+                        .setMessage("Unable to login")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        }).show();
+
+            } else {
+
+                ParseLoginBuilder builder = new ParseLoginBuilder(ServicesActivity.this);
+                startActivityForResult(builder.build(), 0);
+
+            }
 
         }
 

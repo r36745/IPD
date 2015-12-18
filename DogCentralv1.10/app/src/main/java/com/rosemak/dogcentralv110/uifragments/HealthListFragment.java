@@ -100,7 +100,7 @@ public class HealthListFragment extends Fragment implements LocationListener {
 
                 enableGps();
                 Log.d(TAG, "Lat= " + mLat + "Lng= " + mLng);
-                String placesData = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + mLat + "," + mLng + "&radius=8000&types=pet_stores&keyword=dog|veterinary&key=" + API_KEY;
+                String placesData = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + mLat + "," + mLng + "&radius=8000&keyword=dog|veterinarian&key=" + API_KEY;
                 queryURL = new URL(placesData);
                 new GetStores().execute(queryURL);
             } catch (MalformedURLException e) {

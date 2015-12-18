@@ -1,5 +1,7 @@
 package com.rosemak.dogcentralv110.uiactivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
+import com.rosemak.dogcentralv110.UIHelper;
 import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.uifragments.HealthListFragment;
 import com.rosemak.dogcentralv110.R;
@@ -17,16 +21,30 @@ import com.rosemak.dogcentralv110.R;
  */
 public class HealthActivity extends AppCompatActivity implements HealthListFragment.HealthOnButtonClickListener {
     public static final String TAG = HealthActivity.class.getSimpleName();
+    public UIHelper helper;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
 
-        HealthListFragment healthListFragment = new HealthListFragment();
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, healthListFragment, HealthListFragment.TAG)
-                .commit();
+
+        helper = new UIHelper();
+        if (!helper.isNetworkAvailable(HealthActivity.this)){
+
+
+            Intent intent = new Intent(HealthActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        } else {
+
+            HealthListFragment healthListFragment = new HealthListFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, healthListFragment, HealthListFragment.TAG)
+                    .commit();
+        }
+
+
     }
 
 
@@ -59,6 +77,30 @@ public class HealthActivity extends AppCompatActivity implements HealthListFragm
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+
+        }  else if (id == R.id.log_in) {
+
+            helper = new UIHelper();
+            if (!helper.isNetworkAvailable(HealthActivity.this)){
+
+
+                new AlertDialog.Builder(HealthActivity.this)
+                        .setTitle("Wifi is unavailable")
+                        .setMessage("Unable to login")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        }).show();
+
+            } else {
+
+                ParseLoginBuilder builder = new ParseLoginBuilder(HealthActivity.this);
+                startActivityForResult(builder.build(), 0);
+
+            }
 
         }
 

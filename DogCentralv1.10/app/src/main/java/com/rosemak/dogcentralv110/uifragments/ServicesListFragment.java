@@ -100,7 +100,7 @@ public class ServicesListFragment extends Fragment implements LocationListener {
                 mProgressBar.setVisibility(View.VISIBLE);
                 enableGps();
 
-                String placesData = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + mLat +  "," +  mLng +"&radius=8000&types=pet_stores&keyword=adoption&key=" + API_KEY;
+                String placesData = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + mLat +  "," +  mLng +"&radius=8000&types=pet_stores&keyword=grooming&key=" + API_KEY;
                 queryURL = new URL(placesData);
                 new GetStores().execute(queryURL);
             } catch (MalformedURLException e) {

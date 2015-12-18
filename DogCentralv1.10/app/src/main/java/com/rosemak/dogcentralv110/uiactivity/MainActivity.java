@@ -1,5 +1,7 @@
 package com.rosemak.dogcentralv110.uiactivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
 import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.uifragments.CategoriesFragment;
 import com.rosemak.dogcentralv110.uifragments.DogAdoptionFragment;
@@ -17,6 +20,7 @@ import com.rosemak.dogcentralv110.uifragments.DogAdoptionFragment;
 public class MainActivity extends AppCompatActivity implements DogAdoptionFragment.OnAdoptionClick {
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String ADOPTME = "adoptme";
+    public UIHelper helper;
 
 
     @Override
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements DogAdoptionFragme
         setContentView(R.layout.activity_main);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
 
 
 
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements DogAdoptionFragme
 
         if (id == R.id.log_out) {
             ParseUser.logOut();
+
             ParseUser currentUser = ParseUser.getCurrentUser();
             Log.d(TAG, "Logged out");
 
@@ -71,8 +77,28 @@ public class MainActivity extends AppCompatActivity implements DogAdoptionFragme
             startActivity(intent);
 
         } else if (id == R.id.log_in) {
-            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-            startActivityForResult(builder.build(), 0);
+            helper = new UIHelper();
+            if (!helper.isNetworkAvailable(MainActivity.this)){
+
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Wifi is unavailable")
+                        .setMessage("Unable to login")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        }).show();
+
+            } else {
+
+                ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
+                startActivityForResult(builder.build(), 0);
+
+            }
+
         }
 
         return super.onOptionsItemSelected(item);

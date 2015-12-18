@@ -1,6 +1,8 @@
 package com.rosemak.dogcentralv110.uifragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -20,8 +22,9 @@ import android.widget.ImageView;
 
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.UIHelper;
+import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.uiactivity.SocialActivity;
 
 import java.io.File;
@@ -125,66 +128,135 @@ public class PostFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //ratingFloat = (float) 0.0;
+        //save data if user is offline
+        UIHelper helper = new UIHelper();
         mNotes = (EditText) getActivity().findViewById(R.id.editText);
         mUpdateButton = (Button) getActivity().findViewById(R.id.updateButton);
         mAddPhoto = (ImageButton) getActivity().findViewById(R.id.addPhoto);
 
+        if (helper.isNetworkAvailable(getActivity())) {
 
-        mAddPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                mImageUri = getImageUri();
-                if (mImageUri != null) {
+            mAddPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    mImageUri = getImageUri();
+                    if (mImageUri != null) {
 
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+                    }
+                    startActivityForResult(cameraIntent, REQUEST_TAKE_PICTURE);
                 }
-                startActivityForResult(cameraIntent, REQUEST_TAKE_PICTURE);
-            }
-        });
+            });
 
 
+            mUpdateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String userNotes = mNotes.getText().toString();
+                    String userImg = String.valueOf(mImageUri);
 
 
-        mUpdateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userNotes = mNotes.getText().toString();
-                String userImg = String.valueOf(mImageUri);
+                    ParseObject post = new ParseObject(POSTS);
+                    ParseUser user = ParseUser.getCurrentUser();
+
+                    String name = user.getString("name");
+                    Log.d(TAG, "NAMES= " + name);
+                    post.put(KEY_NAME, name);
+
+                    if (!userNotes.equals("") && userImg.equals("") ) {
+                        post.put(KEY_NOTES, userNotes);
+                        Log.d(TAG, "post entered");
+                        mNotes.setText("");
+
+                    } else if (!userImg.equals("") && userNotes.equals("")){
+                        post.put(KEY_IMG, userImg);
+                        Log.d(TAG, "Image entered");
 
 
-                ParseObject post = new ParseObject(POSTS);
-                ParseUser user = ParseUser.getCurrentUser();
+                    } else {
+                        Log.d(TAG, "Image and post entered");
+                        post.put(KEY_NOTES, userNotes);
+                        post.put(KEY_IMG, userImg);
 
-                String name = user.getString("name");
-                Log.d(TAG, "NAMES= " + name);
-                post.put(KEY_NAME, name);
-
-                if (!userNotes.equals("") && userImg.equals("") ) {
-                    post.put(KEY_NOTES, userNotes);
-                    Log.d(TAG, "post entered");
-                    mNotes.setText("");
-
-                } else if (!userImg.equals("") && userNotes.equals("")){
-                    post.put(KEY_IMG, userImg);
-                    Log.d(TAG, "Image entered");
+                    }
 
 
-                } else {
-                    Log.d(TAG, "Image and post entered");
-                    post.put(KEY_NOTES, userNotes);
-                    post.put(KEY_IMG, userImg);
+                    post.saveInBackground();
+                    Intent intent = new Intent(getActivity(), SocialActivity.class);
+                    startActivity(intent);
 
                 }
+            });
+
+        } else {
+
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Wifi is unavailable")
+                    .setMessage("Post will be saved")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
 
-                post.saveInBackground();
-                Intent intent = new Intent(getActivity(), SocialActivity.class);
-                startActivity(intent);
+                        }
+                    }).show();
 
-            }
-        });
+
+            mAddPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    mImageUri = getImageUri();
+                    if (mImageUri != null) {
+
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+                    }
+                    startActivityForResult(cameraIntent, REQUEST_TAKE_PICTURE);
+                }
+            });
+
+
+            mUpdateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String userNotes = mNotes.getText().toString();
+                    String userImg = String.valueOf(mImageUri);
+
+
+                    ParseObject post = new ParseObject(POSTS);
+                    ParseUser user = ParseUser.getCurrentUser();
+
+                    String name = user.getString("name");
+                    Log.d(TAG, "NAMES= " + name);
+                    post.put(KEY_NAME, name);
+
+                    if (!userNotes.equals("") && userImg.equals("")) {
+                        post.put(KEY_NOTES, userNotes);
+                        Log.d(TAG, "post entered");
+                        mNotes.setText("");
+
+                    } else if (!userImg.equals("") && userNotes.equals("")) {
+                        post.put(KEY_IMG, userImg);
+                        Log.d(TAG, "Image entered");
+
+
+                    } else {
+                        Log.d(TAG, "Image and post entered");
+                        post.put(KEY_NOTES, userNotes);
+                        post.put(KEY_IMG, userImg);
+
+                    }
+
+
+                    post.saveEventually();
+                    Intent intent = new Intent(getActivity(), SocialActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+        }
+
 
 
     }

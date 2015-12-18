@@ -74,6 +74,8 @@ public class SocialFragment extends Fragment {
                 startActivity(intent);
             }
         });*/
+
+
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
