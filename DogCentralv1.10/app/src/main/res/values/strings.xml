@@ -14,4 +14,12 @@
     <string name="nearby_places">Adoptable Dog</string>
     <string name="adoptable_dogs">Adoptable Dog Details</string>
     <string name="preview_images">previewImages</string>
+    <string name="phone_num">Phone:</string>
+    <string name="logout">Log out</string>
+    <string name="login">Log in</string>
+    <string name="new_username">new username</string>
+    <string name="updated_password">updated password</string>
+    <string name="update_username">update username</string>
+    <string name="new_password">new password</string>
+    <string name="username_update_button">update</string>
 </resources>

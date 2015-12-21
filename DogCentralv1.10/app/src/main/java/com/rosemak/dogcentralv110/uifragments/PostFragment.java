@@ -29,7 +29,9 @@ import com.rosemak.dogcentralv110.uiactivity.SocialActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by stevierose on 12/11/15.
@@ -46,6 +48,11 @@ public class PostFragment extends Fragment {
     public String KEY_NOTES = "notes";
     public String KEY_IMG = "image";
     public String KEY_NAME = "usersname";
+    public String KEY_DAY = "monthday";
+    public String KEY_MONTH = "monthyear";
+    public String KEY_YEAR = "yearyear";
+    public String KEY_TIME = "timestamp";
+
 
     public static final String POSTS = "TestPost";
     private static final int REQUEST_TAKE_PICTURE = 0x01001;
@@ -144,6 +151,8 @@ public class PostFragment extends Fragment {
                     if (mImageUri != null) {
 
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+                    } else {
+                        Log.d(TAG, "No image captured");
                     }
                     startActivityForResult(cameraIntent, REQUEST_TAKE_PICTURE);
                 }
@@ -159,6 +168,33 @@ public class PostFragment extends Fragment {
 
                     ParseObject post = new ParseObject(POSTS);
                     ParseUser user = ParseUser.getCurrentUser();
+
+                    //get current date
+                    Calendar calendar = Calendar.getInstance();
+                    int cDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    int cMonth = calendar.get(Calendar.MONTH) +1;
+                    int year = calendar.get(Calendar.YEAR);
+
+                    post.put(KEY_DAY, cDay);
+                    post.put(KEY_MONTH, cMonth);
+                    post.put(KEY_YEAR, year);
+
+
+                    //get timestamp
+
+                    TimeZone tz = TimeZone.getDefault();
+                    SimpleDateFormat date = new SimpleDateFormat("KK:mm a");
+                    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
+                    Date currentLocalTime = cal.getTime();
+
+
+                    Log.d(TAG, "Timezone= " + tz.getDisplayName() + "Timezone id = " + tz.getID());
+                    date.setTimeZone(TimeZone.getTimeZone("GMT-5:00"));
+                    String localTime = date.format(currentLocalTime);
+                    Log.d(TAG, "time= " + localTime);
+                    post.put(KEY_TIME, localTime);
+
+
 
                     String name = user.getString("name");
                     Log.d(TAG, "NAMES= " + name);
@@ -223,10 +259,34 @@ public class PostFragment extends Fragment {
                     String userNotes = mNotes.getText().toString();
                     String userImg = String.valueOf(mImageUri);
 
-
                     ParseObject post = new ParseObject(POSTS);
                     ParseUser user = ParseUser.getCurrentUser();
 
+                    //get current date
+                    Calendar calendar = Calendar.getInstance();
+                    int cDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    int cMonth = calendar.get(Calendar.MONTH) +1;
+                    int year = calendar.get(Calendar.YEAR);
+
+                    post.put(KEY_DAY, cDay);
+                    post.put(KEY_MONTH, cMonth);
+                    post.put(KEY_YEAR, year);
+
+                    //get timestamp
+
+                    TimeZone tz = TimeZone.getDefault();
+                    SimpleDateFormat date = new SimpleDateFormat("KK:mm a");
+                    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-5:00"));
+                    Date currentLocalTime = cal.getTime();
+
+
+                    Log.d(TAG, "Timezone= " + tz.getDisplayName() + "Timezone id = " + tz.getID());
+                    date.setTimeZone(TimeZone.getTimeZone("GMT-5:00"));
+                    String localTime = date.format(currentLocalTime);
+                    Log.d(TAG, "time= " + localTime);
+                    post.put(KEY_TIME, localTime);
+
+                    //Current user
                     String name = user.getString("name");
                     Log.d(TAG, "NAMES= " + name);
                     post.put(KEY_NAME, name);
@@ -284,5 +344,14 @@ public class PostFragment extends Fragment {
         Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         scanIntent.setData(imageUri);
         getActivity().sendBroadcast(scanIntent);
+    }
+
+    public void getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        int cDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int cMonth = calendar.get(Calendar.MONTH) +1;
+        int year = calendar.get(Calendar.YEAR);
+
+
     }
 }
