@@ -18,9 +18,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
-import com.rosemak.dogcentralv110.places.GooglePlace;
 import com.rosemak.dogcentralv110.R;
 import com.rosemak.dogcentralv110.adapters.SocialAdapter;
+import com.rosemak.dogcentralv110.places.GooglePlace;
+import com.rosemak.dogcentralv110.uiactivity.MainActivity;
 import com.rosemak.dogcentralv110.uiactivity.PostActivity;
 
 import java.util.ArrayList;
@@ -56,6 +57,13 @@ public class SocialFragment extends Fragment {
             addPost.setVisibility(View.VISIBLE);
         }
         getLastPost();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -97,9 +105,15 @@ public class SocialFragment extends Fragment {
         } else {
 
             new AlertDialog.Builder(getActivity())
-                    .setTitle("To add a post")
+                    .setTitle("To be social")
                     .setMessage("Please log in")
-                    .setNegativeButton("No", null)
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                    })
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -132,6 +146,10 @@ public class SocialFragment extends Fragment {
                         mGooglePlace.setmUserNotes(result.getString(postFragment.KEY_NOTES));
                         mGooglePlace.setPhoto(result.getString(postFragment.KEY_IMG));
                         mGooglePlace.setCurrentUser(result.getString(postFragment.KEY_NAME));
+                        mGooglePlace.setmDay(result.getInt(postFragment.KEY_DAY));
+                        mGooglePlace.setmMonth(result.getInt(postFragment.KEY_MONTH));
+                        mGooglePlace.setmYear(result.getInt(postFragment.KEY_YEAR));
+                        mGooglePlace.setTime(result.getString(postFragment.KEY_TIME));
 
                         mArrayList.add(mGooglePlace);
 

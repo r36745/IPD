@@ -22,6 +22,7 @@ public class SocialActivity extends AppCompatActivity {
 
     public static final String TAG = SocialActivity.class.getSimpleName();
     public UIHelper helper;
+    public Menu currentMenu;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class SocialActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main_list, menu);
+
+        currentMenu = menu;
         return true;
     }
 
@@ -61,21 +64,33 @@ public class SocialActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.log_out) {
+
             ParseUser.logOut();
             ParseUser currentUser = ParseUser.getCurrentUser();
             Log.d(TAG, "Logged out");
 
+            currentMenu.findItem(R.id.log_out).setVisible(false);
+            currentMenu.findItem(R.id.log_in).setVisible(true);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
 
             return true;
+        } else if(id == R.id.action_settings) {
+
+            Intent intent = new Intent(SocialActivity.this, SettingsActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.my_home) {
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
         } else if (id==R.id.log_in){
+
+            currentMenu.findItem(R.id.log_out).setVisible(true);
+            currentMenu.findItem(R.id.log_in).setVisible(false);
+            //this.findViewById(R.id.log_in).setVisibility(View.GONE);
 
             helper = new UIHelper();
             if (!helper.isNetworkAvailable(SocialActivity.this)){

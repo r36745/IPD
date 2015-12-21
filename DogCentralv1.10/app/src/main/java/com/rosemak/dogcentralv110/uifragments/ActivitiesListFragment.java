@@ -180,8 +180,11 @@ public class ActivitiesListFragment extends Fragment implements LocationListener
                                 Log.d("SUMMARY", "We Finally have a summary= " + summary);
                                 fSPlace.setmHereNow(summary);
 
-                            //arrayList.add(fSPlace);
-
+                            }
+                            if (obj.getJSONObject(i).getJSONObject("contact").has("formattedPhone")){
+                                String contact = obj.getJSONObject(i).getJSONObject("contact").getString("formattedPhone");
+                                Log.d(TAG, "contact= " +contact);
+                                fSPlace.setmPhoneNum(contact);
                             }
                             if (mLocation.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

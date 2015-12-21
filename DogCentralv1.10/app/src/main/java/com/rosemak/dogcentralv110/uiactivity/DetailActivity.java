@@ -27,6 +27,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
     private String rating;
     private double mLat;
     private double mLng;
+    private String phoneNum;
     private ArrayList<GooglePlace>mArrayList;
 
 
@@ -62,7 +63,6 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
             mLng = mGooglePlace.getmLng();
 
 
-
             MyMapFragment myMapFragment = MyMapFragment.newInstance(mGooglePlace);
             getFragmentManager().beginTransaction()
                     .replace(R.id.container_2, myMapFragment)
@@ -82,6 +82,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
             mLng = mFSPlace.getmLng();
             double lat = mFSPlace.getmLat();
             double lng = mFSPlace.getmLng();
+            phoneNum = mFSPlace.getmPhoneNum();
             Log.d(TAG, "lat= " + lat + "lng= " + lng);
 
             MyMapFragment myMapFragment = MyMapFragment.newInstance(mFSPlace);
@@ -142,8 +143,10 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         return openNow;
     }
 
-
-
+    @Override
+    public String detailPhoneNum() {
+        return phoneNum;
+    }
 
 
 }

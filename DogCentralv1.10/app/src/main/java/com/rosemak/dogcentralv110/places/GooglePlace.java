@@ -32,6 +32,42 @@ public class GooglePlace implements Serializable {
     public Float socialRating;
     public String postRating;
     public String currentUser;
+    public int mDay;
+    public int mMonth;
+    public int mYear;
+    public String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getmDay() {
+        return mDay;
+    }
+
+    public void setmDay(int mDay) {
+        this.mDay = mDay;
+    }
+
+    public int getmMonth() {
+        return mMonth;
+    }
+
+    public void setmMonth(int mMonth) {
+        this.mMonth = mMonth;
+    }
+
+    public int getmYear() {
+        return mYear;
+    }
+
+    public void setmYear(int mYear) {
+        this.mYear = mYear;
+    }
 
     public String getCurrentUser() {
         return currentUser;

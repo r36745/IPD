@@ -21,6 +21,8 @@ import com.rosemak.dogcentralv110.R;
 public class PostActivity extends AppCompatActivity {
     public static final String TAG = PostActivity.class.getSimpleName();
     public UIHelper helper;
+    private MenuItem login;
+    private MenuItem logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class PostActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main_list, menu);
+
+        login = menu.findItem(R.id.log_in);
+        logout = menu.findItem(R.id.log_out);
         return true;
     }
 
@@ -48,6 +53,8 @@ public class PostActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.log_out) {
+            logout.setVisible(false);
+            login.setVisible(true);
             ParseUser.logOut();
             ParseUser currentUser = ParseUser.getCurrentUser();
             Log.d(TAG, "Logged out");
@@ -63,6 +70,8 @@ public class PostActivity extends AppCompatActivity {
             startActivity(intent);
 
         }  else if (id == R.id.log_in) {
+            login.setVisible(false);
+            logout.setVisible(true);
 
             helper = new UIHelper();
             if (!helper.isNetworkAvailable(PostActivity.this)){

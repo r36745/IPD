@@ -26,6 +26,7 @@ public class AdoptionDetailFragment extends Fragment {
         public String breedName();
         public String breedDescription();
         public String breedImg();
+        public String email();
     }
 
     @Override
@@ -49,9 +50,11 @@ public class AdoptionDetailFragment extends Fragment {
         TextView breed = (TextView) getActivity().findViewById(R.id.adoptableBreed);
         TextView description = (TextView) getActivity().findViewById(R.id.adoptableDescription);
         final ImageView imageView = (ImageView) getActivity().findViewById(R.id.adoptableImage);
+        TextView email = (TextView) getActivity().findViewById(R.id.email);
 
         breed.setText(mListener.breedName());
         description.setText(mListener.breedDescription());
+        email.setText(mListener.email());
 
         ImageLoader imageLoader = ImageLoader.getInstance();
         String imageUri = mListener.breedImg();

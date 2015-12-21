@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.rosemak.dogcentralv110.uiactivity.HealthActivity;
 import com.rosemak.dogcentralv110.R;
+import com.rosemak.dogcentralv110.uiactivity.ActivitiesActivity;
+import com.rosemak.dogcentralv110.uiactivity.HealthActivity;
 import com.rosemak.dogcentralv110.uiactivity.ServicesActivity;
 import com.rosemak.dogcentralv110.uiactivity.SocialActivity;
-import com.rosemak.dogcentralv110.uiactivity.ActivitiesActivity;
 
 /**
  * Created by stevierose on 12/11/15.
@@ -47,6 +47,8 @@ public class CategoriesFragment extends Fragment {
         hButton = (ImageButton) getActivity().findViewById(R.id.health);
         sButton = (ImageButton) getActivity().findViewById(R.id.services);
         socialButton = (ImageButton) getActivity().findViewById(R.id.social);
+
+
 
         aButton.setOnClickListener(new View.OnClickListener() {
             @Override
