@@ -7,12 +7,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.parse.ParseUser;
+import com.rosemak.dogcentralv110.R;
 import com.rosemak.dogcentralv110.places.FourSquarePlace;
 import com.rosemak.dogcentralv110.places.GooglePlace;
-import com.rosemak.dogcentralv110.uifragments.MyMapFragment;
-import com.rosemak.dogcentralv110.R;
 import com.rosemak.dogcentralv110.uifragments.DetailFragment;
+import com.rosemak.dogcentralv110.uifragments.MyMapFragment;
 
 import java.util.ArrayList;
 
@@ -96,7 +95,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main_list, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -107,17 +106,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.log_out) {
-            ParseUser.logOut();
-            ParseUser currentUser = ParseUser.getCurrentUser();
-            Log.d(TAG, "Logged out");
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
-
-            return true;
-        } else if (id == R.id.my_home) {
+         if (id == R.id.my_home) {
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

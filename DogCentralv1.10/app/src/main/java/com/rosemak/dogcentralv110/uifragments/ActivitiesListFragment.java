@@ -209,6 +209,7 @@ public class ActivitiesListFragment extends Fragment implements LocationListener
                                 Log.d("Locale", "lat= " + mLat + "Lng= " + mLng);
                                 arrayList.add(fSPlace);
 
+
                             }
 
                         }

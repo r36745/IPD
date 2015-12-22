@@ -37,6 +37,24 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:id="@+id/detailPlaceVicinity"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone_num"
+        android:textSize="16sp"
+        android:autoLink="phone"
+        android:id="@+id/listPlacePhoneNum"
+        android:textColor="#336633"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:id="@+id/detailPlacePhoneNum"
+
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
